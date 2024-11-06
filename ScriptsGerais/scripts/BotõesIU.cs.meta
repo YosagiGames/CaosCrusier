@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 88aef4eebe8ea9f4292efc71f9e8473e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - confi: {instanceID: 0}
+  - pause: {fileID: 8615156739876706359, guid: 5dfc1989d9c3ca14c9f94bcddd812083, type: 3}
+  - credito: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
