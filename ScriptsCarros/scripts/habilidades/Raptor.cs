@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Raptor : MonoBehaviour
 {
     public GameObject carro;
 
+    public Animator animator;
+    public bool batida;
     Rigidbody rb;
     RaycastHit Hit;
-
+    Slider barra;
     float cooldown = 0;
     float hp = 100f;
 
@@ -18,11 +21,14 @@ public class Raptor : MonoBehaviour
     void Start()
     {
         rb = carro.GetComponent<Rigidbody>();
+        barra = GameObject.Find("barra").GetComponent<Slider>();
+        barra.maxValue = 100;
     }
     void FixedUpdate() {
         //Limita para que o cooldown não passe de 0
         if(cooldown <= 0)
         {
+            animator.SetBool("Batida", false);
             cooldown = 0;
         }
         //Limita o HP a 100
@@ -30,14 +36,11 @@ public class Raptor : MonoBehaviour
         {
             hp = 100f;
         }
+        barra.value = hp; 
     }
     void Update()
     {
-        fImpacto = (Mathf.Pow(Mathf.Floor(rb.velocity.magnitude * 3.6f), 2f) * rb.mass) / 26f;
-        if (fImpacto < 8000)
-        {
-            fImpacto = 8000f;
-        }
+        fImpacto = 40f;
         cooldown -= Time.deltaTime;
         if(cooldown <= 0){
             hp += Time.deltaTime * 2.5f;
@@ -47,6 +50,9 @@ public class Raptor : MonoBehaviour
     {
        if(other.gameObject.CompareTag("Carro"))
        {
+
+            animator.SetBool("Batida", true);
+            cooldown = 5f;
             float sent;
             if(hp >= 25.5f)
             {
@@ -54,18 +60,18 @@ public class Raptor : MonoBehaviour
 
                 if(other.gameObject.transform.position.x > carro.transform.position.x)
                 {
-                    sent = 1f;
+                    sent = -1f;
                 }
                 else
                 {
-                    sent = -1f;
+                    sent = 1f;
                 }
 
-                rbAlvo.AddForce(other.gameObject.transform.right * fImpacto * 6f *  sent);
+                rbAlvo.AddForce(other.gameObject.transform.right * fImpacto * rbAlvo.mass * sent, ForceMode.Impulse);
 
-                cooldown = 5f;
+                
                 hp -= 25.5f;
-                rb.AddForce(transform.forward * fImpacto);
+                rb.AddForce(transform.forward * fImpacto / 50f, ForceMode.Acceleration) ;
             }
             else
             {

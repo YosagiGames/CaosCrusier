@@ -9,9 +9,9 @@ public class Corrida
     public int UltrapassagensMin { get; set; }
     public int UltrapassagensMax { get; set; }
     public float Tempo { get; set; }
-    private float TempoAtual {  get; set; }
+    public float TempoAtual {  get; set; }
     public float Resultados { get; set; }
-    private bool Ganhou {  get; set; }
+    public bool Ganhou {  get; set; }
     private bool FimCorrida {  get; set; }  
 
     public void ComecarCorrida()
@@ -23,20 +23,21 @@ public class Corrida
     public void ContarTempo()
     {
         if (!FimCorrida && TempoAtual > 0) 
-        { 
-            TempoAtual -= Time.deltaTime;
+        {
+            TempoAtual --;
         }
     }
     public bool TerminarCorrida(int ultrapassagem)
     {
         //Verifica se está qualificado a ganhar a corrida
-        if(ultrapassagem > UltrapassagensMin  && ultrapassagem < UltrapassagensMax)
+        if(ultrapassagem >= UltrapassagensMin  && ultrapassagem < UltrapassagensMax)
         {
             Ganhou = true;
         }
-        else if (ultrapassagem > UltrapassagensMax)
+        else if (ultrapassagem >= UltrapassagensMax)
         {
             FimCorrida = true;
+            Ganhou = true;
         }
         else
         {
@@ -50,16 +51,10 @@ public class Corrida
 
         return FimCorrida;
     }
-    public void VerResultados(int ultrapassagem)
+    public float VerResultados(int ultrapassagem)
     {
-        if (Ganhou) 
-        {
-            Resultados = Mathf.Floor((UltrapassagensMin + ultrapassagem) / ((Tempo / 2) + TempoAtual)) * ((Tempo * 2 - TempoAtual) * UltrapassagensMax);
-        }
-        else
-        {
-            Resultados = 0;
-        }
+        Resultados = ((Tempo - TempoAtual/2) * ultrapassagem / ((UltrapassagensMax + 1) - ultrapassagem));
 
+        return Resultados;
     }
 }

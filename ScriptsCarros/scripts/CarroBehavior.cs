@@ -29,10 +29,10 @@ public class CarroBehavior
 
     public void DefirValores(float lvl, WheelCollider[] rodas, AnimationCurve curve, float[] marchas, Rigidbody rigid)
     {
-        torqueMax = 1000f + (lvl * 1500f);
+        torqueMax = 2500f + (lvl * 1000f);
         rpmMax = 2000f + (lvl * 500f);
         rpmMin = 500f + (lvl * 300f);
-        freio = (torqueMax * 7f) - (2500f * lvl);
+        freio = (torqueMax * 5f) - (2500f * lvl);
         rodasGuias = rodas;
         curva = curve;
         racioMarchas = marchas;
@@ -115,7 +115,7 @@ public class CarroBehavior
             {
                 rodasGuias[i].brakeTorque = freio / 1.5f;
             }
-            rb.AddTorque((up * (freio / 5) * vel / 55f) * sent);
+            rb.AddTorque((up * (freio / 2) * vel / 45f) * sent);
             acc = 0;
         }
         else

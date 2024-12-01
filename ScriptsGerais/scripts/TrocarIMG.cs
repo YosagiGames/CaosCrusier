@@ -6,132 +6,92 @@ using UnityEngine.SceneManagement;
 
 public class TrocarIMG : MonoBehaviour
 {
-    public GameObject Australia;
-    public GameObject UK;
-    public GameObject Japao;
-    public GameObject Brasil;
-    public GameObject Egito;
+    Cenario Cen = new();
+
+    public GameObject[] fases;
+
+    public GameObject faseAtual;
 
     public int num;
 
+    TelaLoading Load;
+
     void Start()
     {
+        Load = GetComponent<TelaLoading>();
+
         num = 0;
+
+        Cen.cena = fases;
+      
     }
     public void volt()
     {
-        if (num > 0)
+        if (num > -1)
         {
 
             num--;
             Debug.Log("abaixou");
         }
-       
+        if (num == -1)
+        {
+            num = 4;
+        }
     }
     public void passar()
     {
-        if (num < 4)
+        if (num < 5)
         {
 
             num++;
             Debug.Log("aumenta");
         }
-        
-    }
+        if (num == 5)
+        {
+            num = 0;
+        }
 
+    }
+    
     public void mudar()
     {
+      
+        Cen.GerarCenario(num);
 
-        Debug.Log("CHamou");
-        if(num == 0)
-        {
-            UK.SetActive(true);
-
-        }
-        else
-        {
-            UK.SetActive(false);
-            
-        }
-
-        if (num == 1)
-        {
-            Australia.SetActive(true);
-
-        }
-        else
-        {
-            Australia.SetActive(false);
-
-        }
-
-        if (num == 2)
-        {
-            Egito.SetActive(true);
-
-        }
-
-        else
-        {
-            Egito.SetActive(false);
-
-        }
-
-        if (num == 3)
-        {
-            Japao.SetActive(true);
-
-        }
-        else
-        {
-            Japao.SetActive(false);
-
-        }
-
-        if (num == 4)
-        {
-            Brasil.SetActive(true);
-
-        }
-        else
-        {
-            Brasil.SetActive(false);
-
-        }
-
+       
     }
     public void selecionar()
     {
         if (num == 0) {
-
-            SceneManager.LoadScene("ReinoUnido");
+            Load.ChamaLoad();
+            Load.cena = SceneManager.LoadSceneAsync("ReinoUnido");
             Time.timeScale = 1;
         }
 
         if (num == 1)
         {
-
-            SceneManager.LoadScene("Australia");
+            Load.ChamaLoad();
+            Load.cena = SceneManager.LoadSceneAsync("Australia");
             Time.timeScale = 1;
         }
         if (num == 2)
         {
-
-            SceneManager.LoadScene("Egito");
+            Load.ChamaLoad();
+            Load.cena = SceneManager.LoadSceneAsync("Egito");
             Time.timeScale = 1;
         }
         
         if (num == 3)
         {
-
-            SceneManager.LoadScene("Japao");
+            Load.ChamaLoad();
+            Load.cena = SceneManager.LoadSceneAsync("Japao");
             Time.timeScale = 1;
         } 
         
         if (num == 4)
         {
-
-            SceneManager.LoadScene("Brasil");
+            Load.ChamaLoad();
+            Load.cena = SceneManager.LoadSceneAsync("Brasil");
             Time.timeScale = 1;
         } 
     }

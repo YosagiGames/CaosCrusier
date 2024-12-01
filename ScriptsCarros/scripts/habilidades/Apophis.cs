@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Apophis : MonoBehaviour
 {
@@ -12,31 +13,40 @@ public class Apophis : MonoBehaviour
     public GameObject rampa;
     Rigidbody rb;
     Collision colisorFrente;
-    float cooldown = 8f;
+
+    Slider barra;
+    public Animator animator;
+    float cooldown = 0f;
     void Start(){
         rb = eu.GetComponent<Rigidbody>();
+        barra = GameObject.Find("barra").GetComponent<Slider>();
+        barra.maxValue = 8;
     }
     void FixedUpdate() 
     {
         cooldown -= Time.deltaTime;
-        if(cooldown <= 0){
+        barra.value = 8 - cooldown;
+        if(cooldown <= 0)
+        {
             cooldown = 0;
+
+            animator.SetBool("Desativando", false);
         }
         
     }
-    void Update()
-    {
-        Debug.Log(cooldown);
-    }
+    
     void OnCollisionEnter(Collision collision) 
     {
         if(collision.contacts[0].thisCollider.name == rampa.name && collision.gameObject.CompareTag("Carro") && cooldown <= 0f)
         {
+            animator.SetBool("Desativando", true);
             Debug.Log("Contato");
+
             Rigidbody rbAlvo = collision.gameObject.GetComponent<Rigidbody>();
-            rbAlvo.mass = 600f;
-            rbAlvo.AddForce((-transform.forward * (rb.mass * Mathf.Pow(rb.velocity.magnitude * 3.6f, 2) / 2) + (rbAlvo.mass / 2f * transform.up)));
-            rb.AddForce((transform.forward * rbAlvo.mass) + (-transform.up * rbAlvo.mass));
+           
+            rbAlvo.AddForce((-transform.forward * (2500 * rb.velocity.magnitude) + (rbAlvo.mass *  2.5f * transform.up)), ForceMode.Impulse);
+             rb.AddForce((transform.forward * rbAlvo.mass) + (-transform.up * rbAlvo.mass));
+
             cooldown = 8f;
             collision.gameObject.GetComponent<CarroIA>().passado = true;
         }

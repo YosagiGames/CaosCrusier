@@ -87,7 +87,7 @@ public class CarroIA : MonoBehaviour
 
         if (passado)
         {
-            if (Vector3.Distance(transform.position, jogador.transform.position) > 20f ) { 
+            if (Vector3.Distance(transform.position, jogador.transform.position) > 40f ) { 
                 Destroy(carro);
                 Debug.Log("ponto");
             }

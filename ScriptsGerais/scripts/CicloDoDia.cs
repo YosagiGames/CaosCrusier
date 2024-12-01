@@ -1,16 +1,21 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CicloDoDIa : MonoBehaviour
 {
-    [SerializeField]private Transform LuzDia;
+    public Transform LuzDia;
     [SerializeField] private int duracao;
 
     public Light forca;
     private float segundos;
     private float multi;
 
+    public float direcaoSolY;
+    public float anguloSolZ;
+    
+    float MomentoDiaX;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,16 +39,18 @@ public class CicloDoDIa : MonoBehaviour
 
     private void PassarDia()
     {
-        float rotacaoX = Mathf.Lerp(-90,270, segundos / 86400);
-        LuzDia.rotation = Quaternion.Euler(rotacaoX,0,0);
 
-        if(rotacaoX >= 195)
+        
+         MomentoDiaX = Mathf.Lerp(-90,270, segundos / 86400);
+        LuzDia.rotation = Quaternion.Euler(MomentoDiaX,direcaoSolY,anguloSolZ);
+
+        if(MomentoDiaX >= 195)
         {
 
             forca.intensity = 0.0f;
            
         } 
-       else if(rotacaoX >= -19)
+       else if(MomentoDiaX >= -19)
         {
             forca.intensity = 1.5f;
         }
