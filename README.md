@@ -3,7 +3,7 @@
 
 # Link para o Arquivo do projeto
 
-- <a href ="https://drive.google.com/file/d/1Pu06kqrtHHWOLXc2tm22leQNP3jWFNNf/view?usp=sharing">Arquivo Game</a>
+- <a href ="https://drive.google.com/file/d/1SathW3Csp1uiiCvqrPHeomtDZUVw2-Is/view?usp=drive_link">Arquivo Game</a>
 # Wiki do Projeto
 
 ## Nosso Universo
