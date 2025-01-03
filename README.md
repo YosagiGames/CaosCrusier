@@ -4,6 +4,8 @@
 # Link para o Arquivo do projeto
 
 - <a href ="https://drive.google.com/file/d/1SathW3Csp1uiiCvqrPHeomtDZUVw2-Is/view?usp=drive_link">Arquivo Game</a>
+
+- <a href ="https://drive.google.com/file/d/1ill0iF9i0Nk7gV0ag_mFW9MEBvFfPQDx/view?usp=drive_link">Executavel do projeto</a>
 # Wiki do Projeto
 
 ## Nosso Universo
